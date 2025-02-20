@@ -2,10 +2,11 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from portfolio.models import Project
-from .serializers import ProjectSerializer
+from contact.models import Message
+from .serializers import ProjectSerializer, MessageSerializer
 
 # Create your views here.
-class ProjectListView(generics.ListAPIView):
+class ProjectList(generics.ListAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
@@ -19,5 +20,10 @@ class RootAPIView(APIView):
             "message": "Available Endpoints",
             "endpoints": {
                 "portfolio": "/api/portfolio/",
+                "contact": "/api/contact/",
             }
         })
+    
+class MessageCreate(generics.CreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
